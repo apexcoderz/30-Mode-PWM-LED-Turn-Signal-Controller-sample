@@ -1,19 +1,19 @@
 # 30-Mode PWM LED Signal Controller 🚦
 
-![Platform](https://img.shields.io/badge/platform-STM32%20%7C%20Arduino-blue)
+![Platform](https://img.shields.io/badge/platform-STM32%20%7C%20Arduino%20%7C%20ESP-blue)
 ![Language](https://img.shields.io/badge/language-C%2B%2B-orange)
-![License](https://img.shields.io/badge/license-MIT-green)
-![Status](https://img.shields.io/badge/status-Demo-yellow)
+![License](https://img.shields.io/badge/license-Modified%20MIT-green)
+![Status](https://img.shields.io/badge/status-SAMPLE-yellow)
 
-A compact, production-minded firmware for the **STM32F103 (Blue Pill)** that drives LED turn signals and hazard lights with **30 polished animation patterns** using hardware PWM and robust timing logic.
+A compact, production-minded firmware for Microcontrollers that drives LED turn signals and hazard lights with **30 polished animation patterns** using hardware PWM and robust timing logic.
 
-> ⚠️ **Safety note:** This project is intended for educational and demonstration use. Do **not** use experimental lighting on public roads unless it complies with local regulations and vehicle standards.
+> ⚠️ **Safety note:** This project is developed exclusively for demonstration purposes. The developer assumes no liability or responsibility for any legal issues, regulatory non-compliance, or violations of local vehicle standards arising from the use of this program's modes on public roads.
 
 ---
 
 ## Table of Contents
-- [Features](#-features)
-- [Modes](#-modes)
+- [Features](#-Features)
+- [Modes](#-Modes)
 - [Hardware Requirements](#-hardware-requirements)
 - [Wiring & Pinout](#-wiring--pinout)
 - [Build & Flash](#-build--flash)
@@ -21,7 +21,7 @@ A compact, production-minded firmware for the **STM32F103 (Blue Pill)** that dri
 - [Contributing](#-contributing)
 - [License](#-license)
 
-## ✨ Features
+## Features
 
 - **30 Unique Modes:** A wide variety of patterns ranging from elegant fading to aggressive strobing.
 - **Hybrid Control Logic:** Seamlessly switches between PWM (Fading) and Digital GPIO (Strobing) modes without signal locking.
@@ -30,7 +30,7 @@ A compact, production-minded firmware for the **STM32F103 (Blue Pill)** that dri
 
 ---
 
-## 🎛️ Mode List
+## Mode List
 
 The controller cycles through 6 distinct categories of animations:
 
@@ -45,28 +45,30 @@ The controller cycles through 6 distinct categories of animations:
 
 ---
 
-## 🛠️ Hardware Requirements
+## Hardware Requirements
 
 1.  **Microcontroller:** STM32F103C8T6 (Blue Pill) recommended.
     *   *Compatible with Arduino Uno/Nano (requires changing `LED_PIN` to a PWM pin like 3, 5, 6, 9).*
 2.  **Output Driver:**
     *   For small LEDs: 220Ω Resistor.
-    *   **For Automotive LEDs (12V/24V):** You **MUST** use a **MOSFET Module (e.g., IRF520)** or a Transistor to drive the load. The STM32 pin cannot drive 12V bulbs directly.
+    *   **For Automotive LEDs (12V/24V):** You **MUST** use a **MOSFET Module (e.g., IRF520)** or **Relay** to drive the load. The microcontroller pin cannot drive 12V bulbs directly.
 3.  **Power Supply:** 5V (via USB) or 12V source (stepped down for the MCU).
 
-### 🔌 Pin Configuration
+### Pin Configuration
 
 Change the pin definition in `main.ino` to match your setup:
 
 ```cpp
 // Ensure this pin supports PWM (Timer Output)
 #define LED_PIN PA1
+
+// change this if you want to change the cycle duration
 #define AUTO_CYCLE_INTERVAL_MS 8000 // 8 seconds
 ```
 
 ---
 
-## 🔌 Wiring & Pinout
+## Wiring & Pinout
 
 - Connect MCU ground to load ground and to the MOSFET module ground.
 - MOSFET gate -> MCU PWM pin (via 100Ω resistor optional).
@@ -76,36 +78,27 @@ Change the pin definition in `main.ino` to match your setup:
 
 ---
 
-## ⚙️ Build & Flash
+## Build & Flash
 
 - **Arduino IDE:** Install the STM32 board package (STM32duino), select your board and upload normally.
-- **PlatformIO:** Use a `platformio.ini` with an appropriate board (e.g., `bluepill_f103c8`).
-
-Quick PlatformIO example:
-
-```ini
-[env:bluepill_f103c8]
-platform = ststm32
-board = bluepill_f103c8
-framework = arduino
-```
+- **STM32cubeIDE:** Select your board, paste the programs, then upload normally.
 
 ---
 
-## 🔧 Configuration
+## Configuration
 
 - Change `LED_PIN` and `AUTO_CYCLE_INTERVAL_MS` in `main.ino` to suit your hardware and preferences.
 - Mode timing and behavior are defined in the source — tweak constants responsibly and test on a bench before vehicle installation.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions welcome: open an issue to propose features or improvements and submit pull requests with clear change descriptions and, where applicable, hardware test notes.
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the **Modified MIT License** — see `LICENSE` for details.
 
